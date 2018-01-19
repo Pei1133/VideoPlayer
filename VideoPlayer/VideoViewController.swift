@@ -14,6 +14,8 @@ class VideoViewController: AVPlayerViewController {
 
     @objc dynamic var play: Bool = true
     
+    @objc dynamic var mute: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addObserver(self, forKeyPath: "play", options: .new, context: nil)
