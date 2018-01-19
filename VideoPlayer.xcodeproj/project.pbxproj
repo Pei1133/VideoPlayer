@@ -12,6 +12,7 @@
 		AB3A804E2011B7CA0047873E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB3A804C2011B7CA0047873E /* Main.storyboard */; };
 		AB3A80502011B7CA0047873E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB3A804F2011B7CA0047873E /* Assets.xcassets */; };
 		AB3A80532011B7CA0047873E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB3A80512011B7CA0047873E /* LaunchScreen.storyboard */; };
+		AB3A807B2011EF140047873E /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A807A2011EF140047873E /* VideoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		AB3A804F2011B7CA0047873E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB3A80522011B7CA0047873E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB3A80542011B7CA0047873E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB3A807A2011EF140047873E /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				AB3A80482011B7CA0047873E /* AppDelegate.swift */,
 				AB3A804A2011B7CA0047873E /* ViewController.swift */,
 				AB3A804C2011B7CA0047873E /* Main.storyboard */,
+				AB3A807A2011EF140047873E /* VideoViewController.swift */,
 				AB3A804F2011B7CA0047873E /* Assets.xcassets */,
 				AB3A80512011B7CA0047873E /* LaunchScreen.storyboard */,
 				AB3A80542011B7CA0047873E /* Info.plist */,
@@ -138,6 +141,7 @@
 			files = (
 				AB3A804B2011B7CA0047873E /* ViewController.swift in Sources */,
 				AB3A80492011B7CA0047873E /* AppDelegate.swift in Sources */,
+				AB3A807B2011EF140047873E /* VideoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

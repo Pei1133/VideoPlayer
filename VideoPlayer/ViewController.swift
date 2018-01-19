@@ -12,6 +12,7 @@ import AVFoundation
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
+    let videoViewController = VideoViewController()
     var url: String = ""
     var isPlaying = true
     let enterURLTextField = UITextField(frame: CGRect(x: 8, y: 27, width: 359, height: 30))
@@ -26,15 +27,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }()
     
     @objc func handlePause(){
-        if isPlaying {
-//            print("pause!")
-//            player?.pause()
-            pausePlayButton.setTitle("Play", for: .normal)
+        if videoViewController.play == true {
+            videoViewController.play = false
         } else {
-//            print("play!")
-//            player?.play()
-            pausePlayButton.setTitle("Pause", for: .normal)
+            videoViewController.play = true
         }
+//        if isPlaying {
+////            print("pause!")
+////            player?.pause()
+//            pausePlayButton.setTitle("Play", for: .normal)
+//        } else {
+////            print("play!")
+////            player?.play()
+//            pausePlayButton.setTitle("Pause", for: .normal)
+//        }
+        
     }
     
     override func viewDidLoad() {
@@ -43,43 +50,43 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(pausePlayButton)
         
         setupTextField()
-        setupPlayerView()
+//        setupPlayerView()
     }
     
     
-    var player: AVPlayer?
-    func setupPlayerView(){
-        
-        let urlString = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"
-        guard let videoURL = NSURL(string: urlString) else { fatalError("連接錯誤") }
-
-        player = AVPlayer(url: videoURL as URL)
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.view.bounds
-        self.view.layer.addSublayer(playerLayer)
-        player?.play()
-        
+//    var player: AVPlayer?
+//    func setupPlayerView(){
+//
+//        let urlString = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"
+//        guard let videoURL = NSURL(string: urlString) else { fatalError("連接錯誤") }
+//
+//        player = AVPlayer(url: videoURL as URL)
+//        let playerLayer = AVPlayerLayer(player: player)
+//        playerLayer.frame = self.view.bounds
+//        self.view.layer.addSublayer(playerLayer)
+//        player?.play()
+    
 //        player?.addObserver(self, forKeyPath: "play", options: .new, context: nil)
-        player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
+//        player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
 //        let playerItem = AVPlayerItem(url: videoURL as URL)
 //        playerItem.addObserver(self, forKeyPath: "url", options: .new, context: nil)
         
-    }
+//    }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        if keyPath == "status" {
-            
-            print("AAA")
-            guard let newChange = change?[.newKey] as? Bool else{return}
-            if newChange == true{
-                player?.play()
-            } else {
-                player?.pause()
-            }
-        }
-
-    }
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        
+//        if keyPath == "status" {
+//            
+//            print("AAA")
+//            guard let newChange = change?[.newKey] as? Bool else{return}
+//            if newChange == true{
+//                player?.play()
+//            } else {
+//                player?.pause()
+//            }
+//        }
+//
+//    }
     
     func setupTextField(){
         
