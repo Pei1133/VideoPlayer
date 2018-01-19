@@ -13,9 +13,10 @@ import AVFoundation
 class ViewController: UIViewController, UITextFieldDelegate {
 
     var url: String = ""
+    var isPlaying = true
     let enterURLTextField = UITextField(frame: CGRect(x: 8, y: 27, width: 359, height: 30))
     
-    let pauseButton: UIButton = {
+    let pausePlayButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Pause", for: .normal)
         button.tintColor = UIColor.white
@@ -25,14 +26,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }()
     
     @objc func handlePause(){
-        print("pause!")
-        player?.pause()
+        if isPlaying {
+//            print("pause!")
+//            player?.pause()
+            pausePlayButton.setTitle("Play", for: .normal)
+        } else {
+//            print("play!")
+//            player?.play()
+            pausePlayButton.setTitle("Pause", for: .normal)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black
-        self.view.addSubview(pauseButton)
+        self.view.addSubview(pausePlayButton)
         
         setupTextField()
         setupPlayerView()
@@ -51,8 +59,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.layer.addSublayer(playerLayer)
         player?.play()
         
-        player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
-        
+//        player?.addObserver(self, forKeyPath: "play", options: .new, context: nil)
+        player?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
 //        let playerItem = AVPlayerItem(url: videoURL as URL)
 //        playerItem.addObserver(self, forKeyPath: "url", options: .new, context: nil)
         
@@ -60,11 +68,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if keyPath == "currentItem.loadedTimeRanges" {
+        if keyPath == "status" {
             
-            print("CCC")
-
+            print("AAA")
+            guard let newChange = change?[.newKey] as? Bool else{return}
+            if newChange == true{
+                player?.play()
+            } else {
+                player?.pause()
+            }
         }
+
     }
     
     func setupTextField(){
