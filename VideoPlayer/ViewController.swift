@@ -13,49 +13,79 @@ import AVFoundation
 class ViewController: UIViewController, UITextFieldDelegate {
 
     var url: String = ""
+    let enterURLTextField = UITextField(frame: CGRect(x: 8, y: 27, width: 359, height: 30))
+    
+    let pauseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Pause", for: .normal)
+        button.tintColor = UIColor.white
+        button.frame = CGRect(x: 20, y: 636, width: 55, height: 19)
+        button.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func handlePause(){
+        print("pause!")
+        player?.pause()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.black
-
-        setupTextField()
+        self.view.addSubview(pauseButton)
         
-//        "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"
-        guard let videoURL = NSURL(string: url) else { fatalError("連接錯誤") }
-//        let filePath = Bundle.main.path(forResource: "hangge", ofType: "mp4")
-//        let videoURL = URL(fileURLWithPath: filePath!)
+        setupTextField()
+        setupPlayerView()
+    }
+    
+    
+    var player: AVPlayer?
+    func setupPlayerView(){
+        
+        let urlString = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"
+        guard let videoURL = NSURL(string: urlString) else { fatalError("連接錯誤") }
 
-        let player = AVPlayer(url: videoURL as URL)
+        player = AVPlayer(url: videoURL as URL)
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = self.view.bounds
         self.view.layer.addSublayer(playerLayer)
-        player.play()
+        player?.play()
+        
+        player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+        
+//        let playerItem = AVPlayerItem(url: videoURL as URL)
+//        playerItem.addObserver(self, forKeyPath: "url", options: .new, context: nil)
+        
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "currentItem.loadedTimeRanges" {
+            
+            print("CCC")
+
+        }
     }
     
     func setupTextField(){
         
-        let enterURLTextField = UITextField(frame: CGRect(x: 8, y: 27, width: 359, height: 30))
-        
-        enterURLTextField.delegate = self
+        self.enterURLTextField.delegate = self
         
         self.view.addSubview(enterURLTextField)
         
-        enterURLTextField.placeholder = "Enter URL of video"
+        self.enterURLTextField.placeholder = "Enter URL of video"
         
-        enterURLTextField.borderStyle = .roundedRect
+        self.enterURLTextField.borderStyle = .roundedRect
         
-        enterURLTextField.clearButtonMode = .whileEditing
+        self.enterURLTextField.clearButtonMode = .whileEditing
         
-        enterURLTextField.keyboardType = .emailAddress
+        self.enterURLTextField.keyboardType = .emailAddress
         
-        enterURLTextField.returnKeyType = .done
+        self.enterURLTextField.returnKeyType = .done
         
-        enterURLTextField.backgroundColor = UIColor.white
+        self.enterURLTextField.backgroundColor = UIColor.white
         
-        enterURLTextField.textColor = UIColor.black
-        
-        self.url = enterURLTextField.text!
+        self.enterURLTextField.textColor = UIColor.black
 
     }
     
@@ -63,8 +93,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
  
         self.view.endEditing(true)
         
+        self.url = self.enterURLTextField.text!
+        
         return true
     }
-
 }
-
